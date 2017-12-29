@@ -101,3 +101,7 @@ void reboot(int delay) {
       mgos_system_restart_after(delay_ms);
 }
 #endif
+
+bool mgos_lmos_init(void) { 
+      return true; 
+}
