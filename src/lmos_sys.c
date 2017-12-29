@@ -42,7 +42,7 @@ char* get_sys_info(void) {
 #endif
 
     //JSON struct
-    char* json = "{fw_version: \"%s\", fw_id: \"%s\", mac: \"%s\", "
+    char* json = "{app: \"%s\", fw_version: \"%s\", fw_id: \"%s\", mac: \"%s\", "
       "arch: \"%s\", uptime: %lu, "
       "ram_size: %d, ram_free: %d, ram_min_free: %d, "
       "fs_size: %d, fs_free: %d"
@@ -54,7 +54,7 @@ char* get_sys_info(void) {
 #endif
       "}";
 
-    size_t needed = snprintf(NULL, 0, json, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+    size_t needed = snprintf(NULL, 0, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
       (unsigned long) mgos_uptime(), mgos_get_heap_size(),
       mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
@@ -71,7 +71,7 @@ char* get_sys_info(void) {
 
     char* json_str = (char*)malloc(needed * sizeof(char));
 
-    sprintf(json_str, json, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+    sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
       (unsigned long) mgos_uptime(), mgos_get_heap_size(),
       mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
