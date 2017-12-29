@@ -5,15 +5,11 @@ let LMOS = {
     // Get system info 
     // Returned json if success or null if C function not exist.
     getSysInfo: function () {
-        if (this._gsi) {
-            return JSON.parse(this._gsi());
-        } else {
-            return null;
-        }
+        return JSON.parse(this._gsi());
     },
     // ## **`reboot(delay)`**
     // System reboot after delay miliseconds, default delay: 100
     reboot: function (delay) {
-        if (this._rb) this._rb(delay);
+        this._rb(delay);
     },
 };
