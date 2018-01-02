@@ -1,4 +1,4 @@
-int get_sys_info(char* json_str);
+void get_sys_info(char* json_str);
 
 void reboot(int delay);
 

@@ -1,5 +1,5 @@
 let LMOS = {
-    _gsi: ffi("int get_sys_info(char*)"),
+    _gsi: ffi("void get_sys_info(char*)"),
     _rb: ffi("void reboot(int)"),
     // ## **`getSysInfo()`**
     // Get system info 
