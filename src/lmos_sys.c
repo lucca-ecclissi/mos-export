@@ -13,7 +13,7 @@
 #include <string.h>
 
 #include "lmos_sys.h"
-char* json_str;
+
 #if MGOS_ENABLE_SYS_SERVICE
 char* get_sys_info(void) {
           struct mgos_net_ip_info ip_info;
@@ -69,7 +69,7 @@ char* get_sys_info(void) {
 #endif
       );
 
-    json_str = (char*)calloc(1, sizeof(needed));
+    char* json_str = (char*)malloc(sizeof(needed));
 
     sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
@@ -90,12 +90,7 @@ char* get_sys_info(void) {
   free(ssid);
   free(status);
 #endif
-
-      char* str = &json_str;
-
-      free(json_str);
-
-      return str;
+      return json_str;
 }
 
 void reboot(int delay) {
