@@ -40,23 +40,38 @@ char* get_sys_info(void) {
     mgos_net_ip_to_str(&ip_info.ip, eth_ip);
   }
 #endif
-  (void) ip_info;
-  char* json_str = "";
 
-  int len = json_printf(
-      json_str,
-      "{app: %Q, fw_version: %Q, fw_id: %Q, mac: %Q, "
-      "arch: %Q, uptime: %lu, "
-      "ram_size: %u, ram_free: %u, ram_min_free: %u, "
-      "fs_size: %u, fs_free: %u"
+    //JSON struct
+    char* json = "{app: \"%s\", fw_version: \"%s\", fw_id: \"%s\", mac: \"%s\", "
+      "arch: \"%s\", uptime: %lu, "
+      "ram_size: %d, ram_free: %d, ram_min_free: %d, "
+      "fs_size: %d, fs_free: %d"
 #ifdef MGOS_HAVE_WIFI
-      ",wifi: {sta_ip: %Q, ap_ip: %Q, status: %Q, ssid: %Q}"
+      ",wifi: {sta_ip: \"%s\", ap_ip: \"%s\", status: \"%s\", ssid: \"%s\"}"
 #endif
 #ifdef MGOS_HAVE_ETHERNET
-      ",eth: {ip: %Q}"
+      ",eth: {ip: \"%s\"}"
 #endif
-      "}",
-      MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+      "}";
+
+    size_t needed = snprintf(NULL, 0, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+      mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
+      (unsigned long) mgos_uptime(), mgos_get_heap_size(),
+      mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
+      mgos_get_fs_size(), mgos_get_free_fs_size()
+#ifdef MGOS_HAVE_WIFI
+                              ,
+      sta_ip, ap_ip, status == NULL ? "" : status, ssid == NULL ? "" : ssid
+#endif
+#ifdef MGOS_HAVE_ETHERNET
+      ,
+      eth_ip
+#endif
+      );
+
+    char* json_str = (char*)malloc(needed * sizeof(char));
+
+    sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
       (unsigned long) mgos_uptime(), mgos_get_heap_size(),
       mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
@@ -75,7 +90,7 @@ char* get_sys_info(void) {
   free(ssid);
   free(status);
 #endif
-    return json_str;
+      return json_str;
 }
 
 void reboot(int delay) {
