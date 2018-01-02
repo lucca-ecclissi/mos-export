@@ -90,9 +90,7 @@ char* get_sys_info(void) {
   free(ssid);
   free(status);
 #endif
-      char* str = &json_str;
-      free(json_str);
-      return str;
+      return &json_str;
 }
 
 void reboot(int delay) {
