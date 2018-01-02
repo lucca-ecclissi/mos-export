@@ -69,7 +69,7 @@ char* get_sys_info(void) {
 #endif
       );
 
-    char* json_str = "";
+    char* json_str = (char*)malloc(needed * sizeof(char));
 
     sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
@@ -90,7 +90,9 @@ char* get_sys_info(void) {
   free(ssid);
   free(status);
 #endif
-    return json_str;
+      char* str = &json_str;
+      free(json_str);
+      return str;
 }
 
 void reboot(int delay) {
