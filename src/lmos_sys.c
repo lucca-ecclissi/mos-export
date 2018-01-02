@@ -14,6 +14,8 @@
 
 #include "lmos_sys.h"
 
+ char* json_str;
+
 #if MGOS_ENABLE_SYS_SERVICE
 char* get_sys_info(void) {
           struct mgos_net_ip_info ip_info;
@@ -54,24 +56,7 @@ char* get_sys_info(void) {
 #endif
       "}";
 
-    size_t needed = snprintf(NULL, 0, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
-      mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
-      (unsigned long) mgos_uptime(), mgos_get_heap_size(),
-      mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
-      mgos_get_fs_size(), mgos_get_free_fs_size()
-#ifdef MGOS_HAVE_WIFI
-                              ,
-      sta_ip, ap_ip, status == NULL ? "" : status, ssid == NULL ? "" : ssid
-#endif
-#ifdef MGOS_HAVE_ETHERNET
-      ,
-      eth_ip
-#endif
-      );
-
-    char* json_str = (char*)calloc(1,needed * sizeof(char));
-
-    sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+    size_t needed = snprintf(json_str, 0, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
       (unsigned long) mgos_uptime(), mgos_get_heap_size(),
       mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
