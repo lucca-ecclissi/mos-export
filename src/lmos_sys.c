@@ -95,6 +95,7 @@ void get_sys_info(void (*callback)(char*,void *ud), void *ud) {
 #endif
       free(json_str);
       (void)callback;
+      (void)ud;
 }
 
 void reboot(int delay) {
