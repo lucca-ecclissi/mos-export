@@ -40,9 +40,9 @@ void get_sys_info(void (*callback)(char*), void *arg) {
     mgos_net_ip_to_str(&ip_info.ip, eth_ip);
   }
 #endif
-  (void) args;
+  (void) arg;
   (void) ip_info;
-  
+
     //JSON struct
     char* json = "{app: \"%s\", fw_version: \"%s\", fw_id: \"%s\", mac: \"%s\", "
       "arch: \"%s\", uptime: %lu, "
@@ -73,7 +73,7 @@ void get_sys_info(void (*callback)(char*), void *arg) {
 
     char* json_str = (char*)malloc(needed * sizeof(char));
 
-    int len = sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
+    sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
       (unsigned long) mgos_uptime(), mgos_get_heap_size(),
       mgos_get_free_heap_size(), mgos_get_min_free_heap_size(),
