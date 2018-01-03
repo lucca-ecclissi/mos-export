@@ -15,7 +15,7 @@
 #include "lmos_sys.h"
 
 #if MGOS_ENABLE_SYS_SERVICE
-void get_sys_info(const char *json_str) {
+void get_sys_info(void (*callback)(char*)) {
           struct mgos_net_ip_info ip_info;
   memset(&ip_info, 0, sizeof(ip_info));
 #ifdef MGOS_HAVE_WIFI
@@ -69,7 +69,7 @@ void get_sys_info(const char *json_str) {
 #endif
       );
 
-//     json_str = (char*)malloc(needed * sizeof(char));
+    char* json_str = (char*)malloc(needed * sizeof(char));
 
     int len = sprintf(json_str, json, MGOS_APP, mgos_sys_ro_vars_get_fw_version(), mgos_sys_ro_vars_get_fw_id(),
       mgos_sys_ro_vars_get_mac_address(), mgos_sys_ro_vars_get_arch(),
@@ -86,10 +86,13 @@ void get_sys_info(const char *json_str) {
 #endif
       );
 
+      callback(json_str);
+
 #ifdef MGOS_HAVE_WIFI
   free(ssid);
   free(status);
 #endif
+      free(json_str);
       // return json_str;
 }
 
