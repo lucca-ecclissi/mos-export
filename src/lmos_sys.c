@@ -93,11 +93,7 @@ void get_sys_info(void (*callback)(char*,void *ud), void *ud) {
   free(ssid);
   free(status);
 #endif
-#ifdef MGOS_HAVE_ETHERNET
-      free(eth_ip);
-#endif
       free(json_str);
-      free(json);
 }
 
 void reboot(int delay) {
