@@ -15,7 +15,7 @@
 #include "lmos_sys.h"
 
 #if MGOS_ENABLE_SYS_SERVICE
-void get_sys_info(void (*callback)(char*)) {
+void get_sys_info(void (*callback)(char*), void *arg) {
           struct mgos_net_ip_info ip_info;
   memset(&ip_info, 0, sizeof(ip_info));
 #ifdef MGOS_HAVE_WIFI
@@ -40,7 +40,9 @@ void get_sys_info(void (*callback)(char*)) {
     mgos_net_ip_to_str(&ip_info.ip, eth_ip);
   }
 #endif
-
+  (void) args;
+  (void) ip_info;
+  
     //JSON struct
     char* json = "{app: \"%s\", fw_version: \"%s\", fw_id: \"%s\", mac: \"%s\", "
       "arch: \"%s\", uptime: %lu, "
