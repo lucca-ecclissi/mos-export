@@ -1,4 +1,4 @@
-void get_sys_info(void (*callback)(char*),void *arg);
+void get_sys_info(void (*callback)(char*,void *ud),void *ud);
 
 void reboot(int delay);
 

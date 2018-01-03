@@ -15,7 +15,7 @@
 #include "lmos_sys.h"
 
 #if MGOS_ENABLE_SYS_SERVICE
-void get_sys_info(void (*callback)(char*), void *arg) {
+void get_sys_info(void (*callback)(char*,void *ud), void *ud) {
           struct mgos_net_ip_info ip_info;
   memset(&ip_info, 0, sizeof(ip_info));
 #ifdef MGOS_HAVE_WIFI
@@ -87,7 +87,7 @@ void get_sys_info(void (*callback)(char*), void *arg) {
 #endif
       );
 
-      callback(json_str);
+      callback(json_str, ud);
 
 #ifdef MGOS_HAVE_WIFI
   free(ssid);
