@@ -40,7 +40,6 @@ void get_sys_info(void (*callback)(char*), void *arg) {
     mgos_net_ip_to_str(&ip_info.ip, eth_ip);
   }
 #endif
-  (void) arg;
   (void) ip_info;
 
     //JSON struct
