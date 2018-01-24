@@ -1,8 +1,6 @@
-# LMOS
+# MOS-Export
 
-## Deprecated repository, new repository in ![lumminy](https://github.com/lumminy/lmos)
-
-LMOS is a Mongoose OS Lib. 
+This repository Implements Direct Methods to Mongoose OS Lib. 
 
 For more informations read the file api_lmos.js.
 
