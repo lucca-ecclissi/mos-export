@@ -1,6 +1,5 @@
 # MOS-Export
-![hits]https://u-user.appspot.com/lucca-ecclissi/mos-export.svg?style=flat-square
-
+[![HitCount](http://hits.dwyl.io/lucca-ecclissi/mos-export.svg)](http://hits.dwyl.io/lucca-ecclissi/mos-export)
 
 This repository Implements Direct Methods to Mongoose OS Lib. 
 
